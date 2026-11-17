@@ -14,18 +14,10 @@ for f in "$@"; do
   dir="${f:A:h}"; name="${${f:t}%.*}"
   echo "▶ 文字起こし中: $f"
   if (( SPK )); then
-    "$PY" "$ROOT/speaker.py" "${f:A}" "$dir" "$name" "${LANG_W:-ja}"
+    "$PY" "$ROOT/transcribe.py" "${f:A}" "$dir" "$name" "${LANG_W:-ja}" --speaker
     echo "✔ 完了: $dir/$name.speaker.txt"
   else
-    "$ROOT/.venv/bin/mlx_whisper" "$f" \
-      --model mlx-community/whisper-large-v3-turbo \
-      --language "${LANG_W:-ja}" \
-      --output-dir "$dir" --output-name "$name" \
-      --output-format all \
-      --condition-on-previous-text False \
-      --hallucination-silence-threshold 2 --word-timestamps True \
-      --verbose False
-    rm -f "$dir/$name.vtt" "$dir/$name.tsv" "$dir/$name.json"
+    "$PY" "$ROOT/transcribe.py" "${f:A}" "$dir" "$name" "${LANG_W:-ja}"
     echo "✔ 完了: $dir/$name.txt / $name.srt"
   fi
 done

@@ -46,7 +46,7 @@ Homebrew が必要。ffmpeg と uv は無ければ入れる。初回実行時に
 | パス | 中身 |
 |---|---|
 | `mojiokoshi` | コマンド本体（zsh）。`~/.local/bin/mojiokoshi` からリンクされる |
-| `speaker.py` | 話者分離：文字起こし → 話者分離 → 単語ごとに時間で突き合わせ |
+| `transcribe.py` | 話者分離：文字起こし → 話者分離 → 単語ごとに時間で突き合わせ |
 | `install.sh` | `.venv` 作成とリンク作成 |
 | `.venv/` | 依存ライブラリ（Git 管理外） |
 
