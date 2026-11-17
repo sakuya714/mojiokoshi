@@ -9,5 +9,6 @@ command -v uv >/dev/null || brew install uv
 uv sync                                   # .venv に whisper・pyannote を入れる
 mkdir -p ~/.local/bin
 ln -sf "$PWD/mojiokoshi" ~/.local/bin/mojiokoshi
+ln -sf "$PWD/mojiokoshi" ~/.local/bin/moji          # 短縮名
 [[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || echo '⚠ ~/.local/bin が PATH に無い。~/.zshrc に export PATH="$HOME/.local/bin:$PATH" を足して'
 echo "✔ インストール完了。話者分離（--speaker）を使うなら README の「話者分離の準備」をやって"

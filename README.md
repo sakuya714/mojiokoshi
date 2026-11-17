@@ -8,13 +8,15 @@ Apple Silicon の Mac で、動画・音声をローカルだけで文字起こ�
 ## 使い方
 
 ```bash
-mojiokoshi 会議.mp4              # → 会議.txt / 会議.srt（動画と同じフォルダ）
-mojiokoshi --speaker 会議.mp4    # → 会議.speaker.txt
-mojiokoshi --speaker inbox/*.mp4 # 複数まとめて
-LANG_W=en mojiokoshi talk.mp4    # 日本語以外（既定は ja）
+moji 会議.mp4            # → 会議.txt / 会議.srt（動画と同じフォルダ）
+moji -s 会議.mp4         # 話者分離つき → 会議.speaker.txt
+moji -s inbox/*.mp4      # 複数まとめて
+LANG_W=en moji talk.mp4  # 日本語以外（既定は ja）
 ```
 
-`--speaker` の出力例：
+`moji` は `mojiokoshi` の短縮名（どちらでも同じ）。`-s` は `--speaker` でもいい。
+
+`-s` の出力例：
 
 ```
 [話者A] 00:00:00 おはようございます。今日は来週のリリースについて話したいと思います。
@@ -31,7 +33,7 @@ cd mojiokoshi
 
 Homebrew が必要。ffmpeg と uv は無ければ入れる。初回実行時にモデル（約1.6GB）をダウンロードする。
 
-## 話者分離の準備（`--speaker` を使うときだけ・初回のみ）
+## 話者分離の準備（`-s` を使うときだけ・初回のみ）
 
 1. [Hugging Face](https://huggingface.co) に登録する
 2. [pyannote/speaker-diarization-community-1](https://huggingface.co/pyannote/speaker-diarization-community-1) で利用規約に同意する
