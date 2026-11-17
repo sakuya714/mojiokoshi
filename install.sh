@@ -11,4 +11,4 @@ mkdir -p ~/.local/bin
 ln -sf "$PWD/mojiokoshi" ~/.local/bin/mojiokoshi
 ln -sf "$PWD/mojiokoshi" ~/.local/bin/moji          # 短縮名
 [[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || echo '⚠ ~/.local/bin が PATH に無い。~/.zshrc に export PATH="$HOME/.local/bin:$PATH" を足して'
-echo "✔ インストール完了。話者分離（--speaker）を使うなら README の「話者分離の準備」をやって"
+echo "✔ インストール完了。次に README の「Hugging Face の準備」をやって（話している区間の検出・話者分離に使う）"
