@@ -1,0 +1,20 @@
+# 環境
+.venv/
+__pycache__/
+.DS_Store
+# 動画・音声・文字起こし結果を誤って上げないための保険
+*.mp4
+*.mov
+*.m4a
+*.mp3
+*.wav
+*.aiff
+*.webm
+*.mkv
+*.txt
+*.srt
+*.vtt
+*.json
+# 秘密情報
+.env
+token

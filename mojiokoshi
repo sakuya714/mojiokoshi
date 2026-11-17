@@ -1,0 +1,31 @@
+#!/bin/zsh
+# 使い方: mojiokoshi [--speaker] 動画.mp4 [動画2.mp4 ...]
+#   通常      → 同じフォルダに 同名.txt / 同名.srt
+#   --speaker → 同名.speaker.txt（[話者A] 00:01:12 発言…）
+#   英語など:  LANG_W=en mojiokoshi x.mp4
+set -e
+ROOT="${0:A:h}"   # シンボリックリンクをたどってリポジトリの場所を得る
+PY="$ROOT/.venv/bin/python"
+[[ -x "$PY" ]] || { echo "環境が無い。$ROOT/install.sh を実行して"; exit 1; }
+SPK=0; [[ "$1" == "--speaker" || "$1" == "-s" ]] && { SPK=1; shift; }
+[[ $# -eq 0 ]] && { echo "使い方: mojiokoshi [--speaker] 動画.mp4 [...]"; exit 1; }
+for f in "$@"; do
+  [[ -f "$f" ]] || { echo "見つからない: $f"; continue; }
+  dir="${f:A:h}"; name="${${f:t}%.*}"
+  echo "▶ 文字起こし中: $f"
+  if (( SPK )); then
+    "$PY" "$ROOT/speaker.py" "${f:A}" "$dir" "$name" "${LANG_W:-ja}"
+    echo "✔ 完了: $dir/$name.speaker.txt"
+  else
+    "$ROOT/.venv/bin/mlx_whisper" "$f" \
+      --model mlx-community/whisper-large-v3-turbo \
+      --language "${LANG_W:-ja}" \
+      --output-dir "$dir" --output-name "$name" \
+      --output-format all \
+      --condition-on-previous-text False \
+      --hallucination-silence-threshold 2 --word-timestamps True \
+      --verbose False
+    rm -f "$dir/$name.vtt" "$dir/$name.tsv" "$dir/$name.json"
+    echo "✔ 完了: $dir/$name.txt / $name.srt"
+  fi
+done

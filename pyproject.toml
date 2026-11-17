@@ -1,0 +1,9 @@
+[project]
+name = "mojiokoshi"
+version = "0.1.0"
+description = "Apple Silicon の Mac で動画・音声をローカルで文字起こし（話者分離つき）"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "mlx-whisper>=0.4.3",
+    "pyannote.audio>=4.0",
+]
